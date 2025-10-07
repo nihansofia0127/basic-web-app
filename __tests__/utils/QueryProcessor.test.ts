@@ -31,4 +31,5 @@ describe("QueryProcessor", () => {
         const response: string = QueryProcessor(query);
         expect(response).toBe("nihany");
     });
+
 });
