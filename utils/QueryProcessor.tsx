@@ -1,32 +1,26 @@
 export default function QueryProcessor(query: string): string {
-  if (query.toLowerCase().includes("shakespeare")) {
-    return (
-      "William Shakespeare (26 April 1564 - 23 April 1616) was an " +
-      "English poet, playwright, and actor, widely regarded as the greatest " +
-      "writer in the English language and the world's pre-eminent dramatist."
-    );
+  // Convert query to lowercase for case-insensitive matching
+  const normalizedQuery = query.toLowerCase();
+
+  // Handle name query
+  if (normalizedQuery.includes("what is your name")) {
+    return "GitHub Copilot";
   }
 
-  if (query.toLowerCase().includes("name")) {
-    return "sofiay";
+  // Handle addition queries
+  const additionMatch = normalizedQuery.match(/what is (\d+) plus (\d+)\?/);
+  if (additionMatch) {
+    const num1 = parseInt(additionMatch[1]);
+    const num2 = parseInt(additionMatch[2]);
+    return String(num1 + num2);
   }
 
-  if (query.toLowerCase().includes("andrew id")) {
-    return "nihany";
+  // Handle largest number queries
+  const largestMatch = normalizedQuery.match(/which of the following numbers is the largest: ([0-9, ]+)\?/);
+  if (largestMatch) {
+    const numbers = largestMatch[1].split(',').map(num => parseInt(num.trim()));
+    return String(Math.max(...numbers));
   }
-
-  if (query.toLowerCase().includes("Which of the following numbers is the largest: 53, 30, 94?")) {
-    return "94";
-  }
-
-  if (query.toLowerCase().includes("What is 51 plus 5?")) {
-    return "56";
-  }
-  
-  if (query.toLowerCase().includes("What is 44 plus 58?")) {
-    return "102";
-  }
-  
 
   return "";
 }
